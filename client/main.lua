@@ -202,19 +202,6 @@ function IsInSpawnAnimalZone(coords)
     return false
 end
 
-function CheckEntityOutZone(entity)
-    for k,v in pairs(Config.HuntPoint) do
-        et = entity
-        gec = GetEntityCoords(et)
-        if GetDistanceBetweenCoords(gec, v.x, v.y, v.z, true) > 50 then
-            for i, entity in pairs(search) do
-                deletePed(entity, i)
-                print('Check ENtity Out Zone')
-            end
-        end
-    end
-end
-
 function RemovePedWeapon(coords)
     if Config.WeaponRemoveO then
         if checkzone then
@@ -303,7 +290,9 @@ Citizen.CreateThread(function()
                         end
                     end
                 end
-                --CheckEntityOutZone(entity)
+                if Config.DisableCombatPlayer then
+		    SetPlayerInvincible(ped, false)
+		end
             end
         else
             for i, entity in pairs(search) do

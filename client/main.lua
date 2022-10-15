@@ -290,9 +290,6 @@ Citizen.CreateThread(function()
                         end
                     end
                 end
-                if Config.DisableCombatPlayer then
-		    SetPlayerInvincible(ped, false)
-		end
             end
         else
             for i, entity in pairs(search) do
@@ -300,7 +297,9 @@ Citizen.CreateThread(function()
             end
             animalsSpawnedCount = 0
 
-            
+            if Config.DisableCombatPlayer then
+	        SetPlayerInvincible(ped, false)
+	    end
         end
 
         for i, entity in pairs(search) do

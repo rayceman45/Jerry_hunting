@@ -1,4 +1,5 @@
--- Credit By.Jaturong Wandee --
+-- Credit FB : Jaturong Wandee --
+-- Discord : Jerry#4051 --
 
 Config = {}
 

@@ -16,7 +16,7 @@ Config.KnifesForHarvest     = {        -- กำหนดอาวุธที�
     'WEAPON_KNIFE', 
     'WEAPON_SWITCHBLADE', 
     'WEAPON_MACHETE',
-	'WEAPON_MUSKET',
+    'WEAPON_MUSKET',
     'WEAPON_DAGGER'
 }
 

@@ -230,6 +230,26 @@ function getDistance(pedToGetCoords)
     return dist
 end
 
+function DisableCombatPlayer()
+    if Config.DisableCombatPlayer then
+        Citizen.CreateThread(function()
+            while true do
+                local sleep = 1000
+                if AntifirWeapon then
+                    sleep = 0
+                    if GetSelectedPedWeapon((PlayerPedId())) == GetHashKey(Config.AntifirWeapon) then
+                        SetCanAttackFriendly(PlayerPedId(), false, false)
+                        NetworkSetFriendlyFireOption(false)
+                    else
+                        NetworkSetFriendlyFireOption(true)
+                    end
+                end
+                Citizen.Wait(sleep)
+            end
+        end)
+    end
+end
+
 ------------------------------------------------------------[MAIN]------------------------------------------------------------
 
 Citizen.CreateThread(function()
@@ -247,9 +267,9 @@ Citizen.CreateThread(function()
             sleep = 0
             checkzone = true
             checkentity = true
-            if Config.DisableCombatPlayer then
-                SetPlayerInvincible(ped, true)
-            end
+	    AntifirWeapon = true
+            
+	    DisableCombatPlayer()			
             if animalsSpawnedCount < Config.SpawnAnimalNumber then
                 for k, v in pairs(Config.HuntPoint) do
                     if GetDistanceBetweenCoords(pos, v.x, v.y, v.z, true) < Config.HuntRadious then
@@ -296,10 +316,7 @@ Citizen.CreateThread(function()
                 deletePed(entity, i)
             end
             animalsSpawnedCount = 0
-
-            if Config.DisableCombatPlayer then
-	        SetPlayerInvincible(ped, false)
-	    end
+            AntifirWeapon = false
         end
 
         for i, entity in pairs(search) do

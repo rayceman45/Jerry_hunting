@@ -34,6 +34,7 @@ Config.HuntPoint = {      -- กำพิกัดล่าสัตว์
 
 Config.HuntRadious   = 110          -- เมื่อเข้าในระยะนี้ จะทำการ Spawn สัตว์ | เมื่อสัตว์ออกจากระยะนี้ จะทำการลบสัตว์ (ถ้าอยู่ในโซนนี้ผู้เล่นไม่สามารถฆ่ากันได้ เชื่อโยงกับ Config.DisableCombatPlayer)
 Config.DisableCombatPlayer = true   -- true = ทำให้ผู้เล่นฆ่ากันไม่ได้ | false = ทำให้ผู้เล่นฆ่ากันได้ปกติ
+Config.AntifirWeapon = 'WEAPON_MUSKET'  -- กำหนดอาวุธ ถ้าถืออาวุธชิ้นนี้ จะไม่สามารถยิงคนรอบข้างได้
 
 
 Config["spawnrandomX"] = {-50, 50}  -- พิกัด(ระยะห่าง) spawn ped x

@@ -65,9 +65,6 @@ AddEventHandler('Jerry_hunting:server:addItems', function(itemName, count)
 		end
 	elseif Config.Base == '1.2' then
 		if xPlayer.canCarryItem(i2, c) then 
-			xPlayer.addInventoryItem(i2, c)
-			print('Added')
-
 			for k,v in pairs(Config.Animals) do
 				if v.items.bonus ~= nil then
 					for k,v in pairs(v.items.bonus) do

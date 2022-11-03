@@ -1,5 +1,8 @@
 # Jerry_hunting
 # Version 1.1.0
+
+# Update 1.1.1 (แก้ลูป)
+
 # Update 1.1.0 (เพิ่ม Function เมื่ออยู่ในโซนล่าสัตว์ ผู้เล่นไม่สามารถถือปืนที่กำหนด ยิงกันได้)
 Jerry_hunting | Scripts For Fivem Support Base 1.1, 1.2
 

@@ -4,11 +4,6 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 -------------------------------------------------------------[HUNTING]------------------------------------------------------------
 
-RegisterServerEvent('Jerry_hunting:server:Check')
-AddEventHandler('Jerry_hunting:server:Check', function(itemName, count)
-	print('Check Loop ')
-end)
-
 RegisterServerEvent('Jerry_hunting:server:addItems')
 AddEventHandler('Jerry_hunting:server:addItems', function(itemName, count)
     local _source = source
@@ -40,10 +35,11 @@ AddEventHandler('Jerry_hunting:server:addItems', function(itemName, count)
 					for k,v in pairs(v.items.bonus) do
 						if math.random(1, 100) <= v.bonusdroprate then
 							local xPlayer = ESX.GetPlayerFromId(source)
-							local itn = v.itembonus
+							local itn = xPlayer.getInventoryItem(v.itembonus)
 							local itc = math.random(v.bonuscount[1], v.bonuscount[2]) 
 							
 							if itn.limit ~= -1 and itn.count >= itn.limit then
+								print('drop failed')
 								TriggerClientEvent("pNotify:SendNotification", source, {
 									text = '<span class="red-text">'..Config.Text['item_bonus_limit']..'</span> ',
 									type = "error",
@@ -57,6 +53,7 @@ AddEventHandler('Jerry_hunting:server:addItems', function(itemName, count)
 								else
 									xPlayer.addInventoryItem(itn.name, itc)						
 								end
+								return
 							end
 						end
 					end
@@ -65,6 +62,9 @@ AddEventHandler('Jerry_hunting:server:addItems', function(itemName, count)
 		end
 	elseif Config.Base == '1.2' then
 		if xPlayer.canCarryItem(i2, c) then 
+			xPlayer.addInventoryItem(i2, c)
+			print('Added')
+
 			for k,v in pairs(Config.Animals) do
 				if v.items.bonus ~= nil then
 					for k,v in pairs(v.items.bonus) do

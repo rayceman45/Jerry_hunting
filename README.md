@@ -1,5 +1,6 @@
 # Jerry_hunting
-# Version 1.1.1
+# Version 1.1.2
+# Update 1.1.2 (Bug Fix)
 
 # Update 1.1.1 (แก้ลูป)
 

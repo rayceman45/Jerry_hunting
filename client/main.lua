@@ -69,7 +69,7 @@ Citizen.CreateThread(function()
                     elseif distancePedPlayer > Config.HuntRadious then
                         deletePed(ped, i)
                     end
-                    SetBlockingOfNonTemporaryEvents(ped, true)
+                    --SetBlockingOfNonTemporaryEvents(ped, true)
                 end
             end
         end
@@ -202,6 +202,19 @@ function IsInSpawnAnimalZone(coords)
     return false
 end
 
+function CheckEntityOutZone(entity)
+    for k,v in pairs(Config.HuntPoint) do
+        et = entity
+        gec = GetEntityCoords(et)
+        if GetDistanceBetweenCoords(gec, v.x, v.y, v.z, true) > 50 then
+            for i, entity in pairs(search) do
+                deletePed(entity, i)
+                print('Check ENtity Out Zone')
+            end
+        end
+    end
+end
+
 function RemovePedWeapon(coords)
     if Config.WeaponRemoveO then
         if checkzone then
@@ -230,24 +243,6 @@ function getDistance(pedToGetCoords)
     return dist
 end
 
-Citizen.CreateThread(function()
-    if Config.DisableCombatPlayer then
-        while true do
-            local sleep = 1000
-            if AntifirWeapon then
-                sleep = 0
-                if GetSelectedPedWeapon((PlayerPedId())) == GetHashKey(Config.AntifirWeapon) then
-                    SetCanAttackFriendly(PlayerPedId(), false, false)
-                    NetworkSetFriendlyFireOption(false)
-                else
-                    NetworkSetFriendlyFireOption(true)
-                end
-            end
-            Citizen.Wait(sleep)
-        end
-    end
-end)
-
 ------------------------------------------------------------[MAIN]------------------------------------------------------------
 
 Citizen.CreateThread(function()
@@ -265,8 +260,9 @@ Citizen.CreateThread(function()
             sleep = 0
             checkzone = true
             checkentity = true
-	    AntifirWeapon = true
-            			
+            if Config.DisableCombatPlayer then
+                SetPlayerInvincible(ped, true)
+            end
             if animalsSpawnedCount < Config.SpawnAnimalNumber then
                 for k, v in pairs(Config.HuntPoint) do
                     if GetDistanceBetweenCoords(pos, v.x, v.y, v.z, true) < Config.HuntRadious then
@@ -307,13 +303,17 @@ Citizen.CreateThread(function()
                         end
                     end
                 end
+                --CheckEntityOutZone(entity)
             end
         else
             for i, entity in pairs(search) do
                 deletePed(entity, i)
             end
             animalsSpawnedCount = 0
-            AntifirWeapon = false
+
+            if Config.DisableCombatPlayer then
+                SetPlayerInvincible(ped, false)
+            end
         end
 
         for i, entity in pairs(search) do

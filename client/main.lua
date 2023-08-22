@@ -289,7 +289,7 @@ Citizen.CreateThread(function()
 
                 land,posZ = GetGroundZFor_3dCoord(posX + .0, posY + .0, Z, 1)
                 if land then
-                    entity = CreatePed(5, pedModel, posX, posY, posZ, 0.0, true, false)
+                    entity = CreatePed(5, pedModel, posX, posY, posZ, 0.0, false, false)
                     animalsSpawnedCount = animalsSpawnedCount + 1
                     SetEntityHealth(entity, 150)
                     TaskWanderStandard(entity, true, true)
